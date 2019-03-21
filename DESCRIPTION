@@ -12,3 +12,4 @@ LazyData: true
 Imports: 
   rjson,
   data.table
+RoxygenNote: 6.1.1

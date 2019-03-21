@@ -1,3 +1,11 @@
+#' Get networks from Web of Life
+#'
+#' @param type interaction type
+#' @param names would you like to include the names of species?
+#' @return list of networks
+#' @seealso
+#' @export
+#' @examples
 
 get_networks <- function(type, names = "yes"){
 
