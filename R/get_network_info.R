@@ -22,7 +22,7 @@ get_network_info <- function(type, names = "yes"){
                                                        ifelse(type == "food web", "7", NA)))))))
 
   # create a file (json_networks) with the names of the networks we would like to download
-  json_file <- paste("http://www.web-of-life.es/map_networkdetails_plus.php?networkType=",
+  json_file <- paste("http://www.web-of-life.es/map_networkdetails_type.php?networkType=",
                      type_id,
                      #"&data=All",
                      sep = "")
