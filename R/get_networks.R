@@ -1,13 +1,14 @@
 #' Get networks from Web of Life
 #'
-#' @param interaction_type "plant-ant", "pollination", "seed disperser", "plant-herbivore", "anemone-fish", "host-parasite", "food web"
+#' @param interaction_type "all", "plant-ant", "pollination", "seed disperser", "plant-herbivore", "anemone-fish", "host-parasite", "food web"
+#' @param data_type "binary", "weighted", or "all"
 #' @param names would you like to include the names of species? default = "yes", otherwise input "no"
 #' @return list of networks
 #' @seealso
 #' @export
 #' @examples
 
-get_networks <- function(interaction_type, names = "yes"){
+get_networks <- function(interaction_type, data_type, names = "yes"){
 
   # create an empty list to store the networks
   network_list <- list()
@@ -19,11 +20,17 @@ get_networks <- function(interaction_type, names = "yes"){
                                   ifelse(interaction_type == "anemone-fish", "11",
                                          ifelse(interaction_type == "host-parasite", "8",
                                                 ifelse(interaction_type == "plant-herbivore", "10",
-                                                       ifelse(interaction_type == "food web", "7", NA)))))))
+                                                       ifelse(interaction_type == "food web", "7",
+                                                              ifelse(interaction_type == "all", "All", NA))))))))
+
+  data_id <- ifelse(data_type == "binary", "0",
+                    ifelse(data_type == "weighted", "1",
+                           ifelse(data_type == "all", "All", NA)))
+
 
   # create a file (json_networks) with the names of the networks we would like to download
   json_file <- paste("http://www.web-of-life.es/networkslist.php?type=",
-                     type_id, "&data=All", sep = "")
+                     type_id, "&data=", data_id, sep = "")
   json_networks <- rjson::fromJSON(paste(readLines(json_file), collapse = ""))
 
   # would you like to include the names of the species? ("yes" or "no")

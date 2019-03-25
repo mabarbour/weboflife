@@ -4,10 +4,12 @@
 \alias{get_networks}
 \title{Get networks from Web of Life}
 \usage{
-get_networks(interaction_type, names = "yes")
+get_networks(interaction_type, data_type, names = "yes")
 }
 \arguments{
-\item{interaction_type}{"plant-ant", "pollination", "seed disperser", "plant-herbivore", "anemone-fish", "host-parasite", "food web"}
+\item{interaction_type}{"all", "plant-ant", "pollination", "seed disperser", "plant-herbivore", "anemone-fish", "host-parasite", "food web"}
+
+\item{data_type}{"binary", "weighted", or "all"}
 
 \item{names}{would you like to include the names of species? default = "yes", otherwise input "no"}
 }

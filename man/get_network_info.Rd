@@ -7,9 +7,9 @@
 get_network_info(interaction_type, data_type)
 }
 \arguments{
-\item{interaction_type}{"pollination", "seed disperser", "plant-ant", "plant-herbivore", "anemone-fish", "host-parasite", "food web"}
+\item{interaction_type}{"all", "pollination", "seed disperser", "plant-ant", "plant-herbivore", "anemone-fish", "host-parasite", "food web"}
 
-\item{data_type}{"binary", "weighted", or "all}
+\item{data_type}{"binary", "weighted", or "all"}
 }
 \value{
 data frame with metadata for each network.
