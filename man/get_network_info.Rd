@@ -4,15 +4,15 @@
 \alias{get_network_info}
 \title{Get network info from Web of Life}
 \usage{
-get_network_info(type, names = "yes")
+get_network_info(interaction_type, data_type)
 }
 \arguments{
-\item{type}{interaction type}
+\item{interaction_type}{"pollination", "seed disperser", "plant-ant", "plant-herbivore", "anemone-fish", "host-parasite", "food web"}
 
-\item{names}{would you like to include the names of species?}
+\item{data_type}{"binary", "weighted", or "all}
 }
 \value{
-list of networks
+data frame with metadata for each network.
 }
 \description{
 Get network info from Web of Life
