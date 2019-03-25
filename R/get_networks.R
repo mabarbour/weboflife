@@ -1,31 +1,29 @@
 #' Get networks from Web of Life
 #'
-#' @param type interaction type
-#' @param names would you like to include the names of species?
+#' @param interaction_type "plant-ant", "pollination", "seed disperser", "plant-herbivore", "anemone-fish", "host-parasite", "food web"
+#' @param names would you like to include the names of species? default = "yes", otherwise input "no"
 #' @return list of networks
 #' @seealso
 #' @export
 #' @examples
 
-get_networks <- function(type, names = "yes"){
+get_networks <- function(interaction_type, names = "yes"){
 
   # create an empty list to store the networks
   network_list <- list()
 
   # nested ifelse statement to turn interaction types into codes for Web of Life
-  type_id <- ifelse(type == "plant-ant", "3",
-                    ifelse(type == "plant-pollinator", "5",
-                           ifelse(type == "plant-seed disperser", "6",
-                                  ifelse(type == "anemone-fish", "11",
-                                         ifelse(type == "host-parasite", "8",
-                                                ifelse(type == "plant-herbivore", "10",
-                                                       ifelse(type == "food web", "7", NA)))))))
+  type_id <- ifelse(interaction_type == "plant-ant", "3",
+                    ifelse(interaction_type == "pollination", "5",
+                           ifelse(interaction_type == "seed disperser", "6",
+                                  ifelse(interaction_type == "anemone-fish", "11",
+                                         ifelse(interaction_type == "host-parasite", "8",
+                                                ifelse(interaction_type == "plant-herbivore", "10",
+                                                       ifelse(interaction_type == "food web", "7", NA)))))))
 
   # create a file (json_networks) with the names of the networks we would like to download
   json_file <- paste("http://www.web-of-life.es/networkslist.php?type=",
-                     type_id,
-                     "&data=All",
-                     sep = "")
+                     type_id, "&data=All", sep = "")
   json_networks <- rjson::fromJSON(paste(readLines(json_file), collapse = ""))
 
   # would you like to include the names of the species? ("yes" or "no")
