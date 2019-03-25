@@ -7,7 +7,7 @@
 #' @export
 #' @examples
 
-get_network_info <- function(type, names = "yes"){
+get_network_info <- function(type){
 
   # create an empty list to store the networks
   network_list <- list()
@@ -26,37 +26,20 @@ get_network_info <- function(type, names = "yes"){
                      type_id,
                      #"&data=All",
                      sep = "")
-  json_networks <- rjson::fromJSON(paste(readLines(json_file), collapse = ""))
+  json_network_info <- jsonlite::fromJSON(paste(readLines(json_file), collapse = "")) %>%
+    select(networkAuthor, networkQ, locationName, locationLatitude, locationLongitude) %>%
+    mutate(networkQ = ifelse(networkQ == "\001", "weighted","binary"),
+           locationLatitude = as.numeric(locationLatitude),
+           locationLongitude = as.numeric(locationLongitude))
 
-  # would you like to include the names of the species? ("yes" or "no")
-  speciesName <- names
+  #json_network_info_list <- lapply(json_network_info, FUN = function(x) as.data.frame(t(x))) #list()
+  #json_network_info_df <- plyr::ldply(json_network_info_list) %>%
+  #  select(networkAuthor, networkQ, locationName, locationLatitude, locationLongitude) %>%
+  #  mutate(networkQ = ifelse(networkQ == "\001", "Q","B"))
+  #for(i in 1:length(json_network_info)){
+  #  json_network_info_list <- t(json_network_info[[i]])
+  #}
 
-  # download the networks
-  for(i in 1: length(json_networks)){
-
-    # identifying the network
-    #if(json_networks[[i]]$countSpecies > 0) { # we get networks and subnetworks
-    if(json_networks[[i]]$root == 0 & is.null(json_networks[[i]]$parentNetworkId)){ # we get networks without subnetworks
-      networkName <- json_networks[[i]]$networkName
-      print(networkName)
-
-      # building the URL
-      url <- paste("http://www.web-of-life.es/download/",
-                   networkName,
-                   "_",
-                   speciesName, ".csv",
-                   sep = "")
-
-      # download the network from www.web-of-life.es
-      data <- data.table::fread(url)
-
-      # storing the networks as a data table
-      assign(networkName,data)
-
-      # storing the networks as a list
-      network_list[[networkName]] <- (data)
-    }
-  }
-  return(network_list)
+  return(json_network_info)#df)
 }
 
