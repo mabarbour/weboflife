@@ -41,6 +41,7 @@ get_network_info <- function(interaction_type, data_type){
               data_type = ifelse(networkQ == "\001", "weighted","binary"),
               S = as.numeric(countSpecies),
               L = as.numeric(countConnections),
+              L.freq = as.numeric(sumStrength),
               C = as.numeric(connectance))
 
   return(json_network_info)
