@@ -40,7 +40,7 @@ get_networks <- function(interaction_type, data_type, names = "yes"){
   for(i in 1: length(json_networks)){
 
     # identifying the network
-    #if(json_networks[[i]]$countSpecies > 0) { # we get networks and subnetworks
+    if(json_networks[[i]]$countSpecies > 0) { # we get networks and subnetworks
     if(json_networks[[i]]$root == 0 & is.null(json_networks[[i]]$parentNetworkId)){ # we get networks without subnetworks
       networkName <- json_networks[[i]]$networkName
       print(networkName)
