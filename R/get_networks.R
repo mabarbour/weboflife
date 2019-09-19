@@ -61,6 +61,7 @@ get_networks <- function(interaction_type, data_type, names = "yes"){
       # storing the networks as a list
       network_list[[networkName]] <- (data)
     }
+    }
+    return(network_list)
   }
-  return(network_list)
 }
