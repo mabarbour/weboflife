@@ -64,4 +64,3 @@ get_networks <- function(interaction_type, data_type, names = "yes"){
   }
   return(network_list)
 }
-
