@@ -31,16 +31,17 @@ get_networks <- function(interaction_type, data_type, names = "yes"){
   # create a file (json_networks) with the names of the networks we would like to download
   json_file <- paste("http://www.web-of-life.es/networkslist.php?type=",
                      type_id, "&data=", data_id, sep = "")
-  json_networks <- rjson::fromJSON(paste(readLines(json_file), collapse = ""))
+  json_networks <- rjson::fromJSON(file = json_file) #rjson::fromJSON(paste(readLines(json_file), collapse = ""))
 
   # would you like to include the names of the species? ("yes" or "no")
   speciesName <- names
 
   # download the networks
+  network_list <- list()
   for(i in 1: length(json_networks)){
 
     # identifying the network
-    if(json_networks[[i]]$countSpecies > 0) { # we get networks and subnetworks
+    #if(as.numeric(json_networks[[i]]$countSpecies) > 0) { # we get networks and subnetworks
     if(json_networks[[i]]$root == 0 & is.null(json_networks[[i]]$parentNetworkId)){ # we get networks without subnetworks
       networkName <- json_networks[[i]]$networkName
       print(networkName)
@@ -56,12 +57,12 @@ get_networks <- function(interaction_type, data_type, names = "yes"){
       data <- data.table::fread(url)
 
       # storing the networks as a data table
-      assign(networkName,data)
+      assign(networkName, data)
 
       # storing the networks as a list
       network_list[[networkName]] <- (data)
     }
-    }
-    return(network_list)
+    #}
   }
+  return(network_list)
 }
