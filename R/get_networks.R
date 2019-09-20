@@ -31,7 +31,7 @@ get_networks <- function(interaction_type, data_type, names = "yes"){
   # create a file (json_networks) with the names of the networks we would like to download
   json_file <- paste("http://www.web-of-life.es/networkslist.php?type=",
                      type_id, "&data=", data_id, sep = "")
-  json_networks <- rjson::fromJSON(paste(readLines(json_file), collapse = ""))
+  json_networks <- rjson::fromJSON(file = json_file) #rjson::fromJSON(paste(readLines(json_file), collapse = ""))
 
   # would you like to include the names of the species? ("yes" or "no")
   speciesName <- names
