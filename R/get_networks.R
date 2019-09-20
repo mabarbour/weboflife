@@ -37,7 +37,7 @@ get_networks <- function(interaction_type, data_type, names = "yes"){
   speciesName <- names
 
   # download the networks
-  network_list <- list()
+  #network_list <- list()
   for(i in 1: length(json_networks)){
 
     # identifying the network
